@@ -88,7 +88,7 @@ function getMovimentationsAdmin(req, res){
     const codtecnico = req.headers.decoded.codTecnico;
     const roletecnico = req.headers.decoded.roleTecnico
     try{
-        connection.query("SELECT tecnico_operacao_hardware.*, tecnico.nometecnico, operacao.nomeoperacao FROM tecnico_operacao_hardware INNER JOIN tecnico INNER JOIN operacao ON tecnico_operacao_hardware.codtecnico = tecnico.codtecnico AND tecnico_operacao_hardware.codoperacao = operacao.codoperacao", (err, result, fields)=>{
+        connection.query("SELECT tecnico_operacao_hardware.*, tecnico.nometecnico, operacao.nomeoperacao, hardware.nomehardware FROM tecnico_operacao_hardware INNER JOIN tecnico INNER JOIN operacao INNER JOIN hardware ON tecnico_operacao_hardware.codtecnico = tecnico.codtecnico AND tecnico_operacao_hardware.codoperacao = operacao.codoperacao AND tecnico_operacao_hardware.codhardware = hardware.codhardware", (err, result, fields)=>{
             if(err) throw err;
             return res.status(200).json(result);
         })
