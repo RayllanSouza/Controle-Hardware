@@ -99,6 +99,7 @@ function userLogon(req, res){
                         });
                         return res.status(200).json({
                             token: token,
+                            nome: result[0].nometecnico,
                             role: result[0].admin
                         });
                     }else{
