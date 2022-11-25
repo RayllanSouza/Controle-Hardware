@@ -3,7 +3,7 @@ const { createHardware, deleteHardware, updateHardware, getHardware } = require(
 const { createMovimentation, updateMovimentation, getMovimentation, deleteMovi, getMovimentationsAdmin } = require("../Controllers/MovementsController/movimentsController");
 const { updateOperation, createOperation, deleteOperation, getOperation } = require("../Controllers/OperationController/operationController");
 const { tableController } = require("../Controllers/TableController/TableController");
-const {createUser, userLogon, getTecnicos, updateTecnico, deleteTecnico} = require("../Controllers/UserController/userController");
+const {createUser, userLogon, getTecnicos, updateTecnico, deleteTecnico, updateNomeTecnico} = require("../Controllers/UserController/userController");
 const { JwtMiddleware, JwtVerify } = require("../Middleware/jwt");
 const routes = Router();
 
@@ -19,6 +19,7 @@ routes.post('/gethardwares', JwtMiddleware, getHardware);
 routes.post('/createuser', JwtMiddleware, createUser);
 routes.post('/userlogin', userLogon);
 routes.post('/updateuser', JwtMiddleware, updateTecnico);
+routes.post('/updatenome', JwtMiddleware, updateNomeTecnico);
 routes.post('/deletetecnico', JwtMiddleware, deleteTecnico);
 routes.post('/gettecnicos', JwtMiddleware, getTecnicos);
 

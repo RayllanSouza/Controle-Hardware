@@ -157,6 +157,28 @@ async function updateTecnico(req, res){
     }
 }
 
+async function updateNomeTecnico(req, res){
+        const { nomeatual, novonome} = req.body;
+        if(nomeatual.length < 1 || novonome.length < 1){
+            return res.status(500).json({
+                Error: "Falha ao inserir dados, verifique as entradas."
+            })
+        }else{
+            try{
+                const data={
+                    nometecnico: novonome
+                }
+                await SyncSQL("UPDATE tecnico SET ? WHERE codtecnico = ?", [data, req.headers.decoded.codTecnico])
+                return res.status(200).json({
+                    Sucesso: "Nome Alterado com sucesso!"
+                })
+            }catch(err){
+                if(err) throw err;
+            }
+        }           
+}
+
+
 async function getTecnicos(req, res){
     try{
         connection.query("SELECT * FROM tecnico", (err, results, fields)=>{
@@ -171,4 +193,4 @@ async function getTecnicos(req, res){
 }
 
 
-module.exports = {createUser, userLogon, updateTecnico, getTecnicos, deleteTecnico};
+module.exports = {createUser, userLogon, updateTecnico, updateNomeTecnico, getTecnicos, deleteTecnico};
