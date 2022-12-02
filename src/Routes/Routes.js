@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { createHardware, deleteHardware, updateHardware, getHardware } = require("../Controllers/HardwareController/hardwareController");
-const { createMovimentation, updateMovimentation, getMovimentation, deleteMovi, getMovimentationsAdmin } = require("../Controllers/MovementsController/movimentsController");
+const { createMovimentation, updateMovimentation, getMovimentation, deleteMovi, getMovimentationsAdmin, getMovimentationPerDay } = require("../Controllers/MovementsController/movimentsController");
 const { updateOperation, createOperation, deleteOperation, getOperation } = require("../Controllers/OperationController/operationController");
 const { tableController } = require("../Controllers/TableController/TableController");
 const {createUser, userLogon, getTecnicos, updateTecnico, deleteTecnico, updateNomeTecnico} = require("../Controllers/UserController/userController");
@@ -35,6 +35,9 @@ routes.post('/updatemovi', JwtMiddleware, updateMovimentation);
 routes.post('/getmovi', JwtMiddleware, getMovimentation);
 routes.post('/getadmmovi', JwtMiddleware, getMovimentationsAdmin);
 routes.post('/deletemovi', JwtMiddleware, deleteMovi);
+routes.post('/getmovimentationperday', JwtMiddleware, getMovimentationPerDay);
+
+
 
 
 

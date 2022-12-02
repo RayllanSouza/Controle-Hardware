@@ -2,6 +2,12 @@ const { connection, SyncSQL } = require("../../Database/Database");
 
 function createMovimentation(req, res){
     const {nomeoperacao, nomehardware, numchamado} = req.body;
+	const today = new Date();
+	let yy = today.getFullYear();
+	let mm = today.getMonth() + 1;
+	let dd = today.getDate();
+	if(dd < 10) dd = '0'+dd;
+	if(mm < 10) mm = '0'+mm;
     if(nomeoperacao.length < 1 || nomehardware.length < 1 || numchamado.length < 5){
         return res.status(500).json({
             Error: "Falha ao inserir dados, verifique as entradas."
@@ -15,7 +21,8 @@ function createMovimentation(req, res){
                     codtecnico: req.headers.decoded.codTecnico,
                     codoperacao: idoperacao[0].codoperacao,
                     codhardware: idhardware[0].codhardware,
-                    num_chamado: numchamado
+                    num_chamado: numchamado,
+		    data_chamado: dd+'/'+mm+'/'+yy
                 }
                 try{
                     const moviment = await SyncSQL("SELECT * FROM tecnico_operacao_hardware WHERE num_chamado = ?", numchamado);
@@ -110,4 +117,15 @@ function deleteMovi(req, res){
     }
 }
 
-module.exports = {createMovimentation, updateMovimentation, getMovimentation, getMovimentationsAdmin, deleteMovi}
+function getMovimentationPerDay(req, res){
+    try{
+        connection.query("SELECT COUNT(*), data_chamado FROM tecnico_operacao_hardware GROUP BY data_chamado", (err, result, fields)=>{
+            if(err) throw err;
+            return res.status(200).json(result);
+        })
+    }catch(err){
+        if(err) throw err;
+    }
+}
+
+module.exports = {createMovimentation, updateMovimentation, getMovimentation, getMovimentationsAdmin, deleteMovi, getMovimentationPerDay}
