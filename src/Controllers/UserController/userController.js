@@ -22,7 +22,7 @@ async function createUser(req, res){
     }else{
         const hashedPassword = await hashPassword(senhaTecnico);
         const user = {
-            nometecnico: nomeTecnico,
+            nomeTecnico: nomeTecnico,
             usertecnico: usuarioTecnico,
             senhatecnico: hashedPassword,
             admin: adminStatus
@@ -88,7 +88,7 @@ function userLogon(req, res){
                     if(passwordIsValid){
                         var token = jwt.sign(
                         {
-                            nomeTecnico: result[0].nometecnico,
+                            nome: result[0].nometecnico,
                             userTecnico: result[0].usertecnico,
                             codTecnico: result[0].codtecnico,
                             admin: result[0].admin
@@ -148,7 +148,6 @@ async function updateTecnico(req, res){
                 }
                 return res.status(400).json({Erro: "Senha atual não corresponde a do cadastro."})
             })
-            // const passwordIsValid = await bcrypt.compare(senhaatual, sql[0].senhatecnico);
         }
     }catch(err){
         return res.status(400).json({
