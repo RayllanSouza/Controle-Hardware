@@ -3,6 +3,3 @@
 
 
 
-<h1 align="center">Rotas da Aplicação</h1>
-
-
